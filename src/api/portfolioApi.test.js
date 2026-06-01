@@ -9,6 +9,7 @@ describe('portfolio API client', () => {
   it('loads public portfolio resources for a target user', async () => {
     fetch
       .mockResolvedValueOnce(jsonResponse({ name: 'Public User', bio: 'Bio' }))
+      .mockResolvedValueOnce(jsonResponse([{ id: 'social1', platform: 'github', url: 'https://github.com/example' }]))
       .mockResolvedValueOnce(jsonResponse([{ id: 'post1', title: 'Post' }]))
       .mockResolvedValueOnce(jsonResponse([{ id: 'project1', name: 'Project' }]))
       .mockResolvedValueOnce(jsonResponse([{ id: 'image1', url: '/image.png' }]))
@@ -17,7 +18,9 @@ describe('portfolio API client', () => {
     const result = await loadPublicPortfolio({ baseUrl: 'http://api.test', userId: 'user123' });
 
     expect(fetch).toHaveBeenNthCalledWith(1, 'http://api.test/api/portfolio/profile/public/user123', expect.any(Object));
+    expect(fetch).toHaveBeenNthCalledWith(2, 'http://api.test/api/portfolio/social/public/user123', expect.any(Object));
     expect(result.profile.name).toBe('Public User');
+    expect(result.socials).toHaveLength(1);
     expect(result.posts).toHaveLength(1);
     expect(result.projects).toHaveLength(1);
     expect(result.images).toHaveLength(1);

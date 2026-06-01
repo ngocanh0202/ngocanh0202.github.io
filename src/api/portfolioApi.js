@@ -16,8 +16,9 @@ export async function registerPortfolio({ baseUrl, email, password }) {
 
 export async function loadPublicPortfolio({ baseUrl, userId }) {
   const encoded = encodeURIComponent(userId);
-  const [profile, posts, projects, images, files] = await Promise.all([
+  const [profile, socials, posts, projects, images, files] = await Promise.all([
     request(baseUrl, `/api/portfolio/profile/public/${encoded}`),
+    request(baseUrl, `/api/portfolio/social/public/${encoded}`),
     request(baseUrl, `/api/portfolio/posts/public/${encoded}`),
     request(baseUrl, `/api/portfolio/projects/public/${encoded}`),
     request(baseUrl, `/api/portfolio/images/public/${encoded}`),
@@ -26,7 +27,7 @@ export async function loadPublicPortfolio({ baseUrl, userId }) {
 
   return {
     profile,
-    socials: [],
+    socials: socials.map(normalizeSocial),
     posts: posts.map(normalizePost),
     projects: projects.map(normalizeProject),
     images: images.map(normalizeImage),
