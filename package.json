@@ -1,8 +1,23 @@
 {
   "name": "ngocanh0202-portfolio",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "homepage": "https://github.com/ngocanh0202/ngocanh0202.github.io#readme",
+  "bugs": {
+    "url": "https://github.com/ngocanh0202/ngocanh0202.github.io/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngocanh0202/ngocanh0202.github.io.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "vite.config.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
